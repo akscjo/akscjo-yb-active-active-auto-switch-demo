@@ -1,0 +1,2 @@
+create table if not exists customers (customer_id UUID, company_name text, customer_state text, primary key (customer_id));
+-- create table if not exists  orders(customer_id uuid, order_id int primary key, order_details jsonb, product_name text,product_code text, order_qty int, constraint fk_customer foreign key(customer_id) references customers(customer_id));

@@ -1,0 +1,55 @@
+spring:
+  jpa:
+    open-in-view: false
+  flyway:
+    enabled: false
+  datasource:
+    health-check-interval: 5000  # Time in milliseconds,
+    hikari:
+      username: ${dbuser:yugabyte}
+      password: ${dbpassword:yugabyte}
+#      connection-init-sql: 'set yb_read_from_followers to true;'
+      maximumPoolSize: ${max-pool-size:10}
+      maxLifeTime: ${max-life-time:600000}
+      read-only: false
+      initialization-fail-timeout: -1
+      connection-timeout: 5000
+#      minimum-idle: 0
+      data-source-class-name: com.yugabyte.ysql.YBClusterAwareDataSource
+      data-source-properties:
+        serverName: ${node:127.0.0.2}
+        portNumber: ${port:5433}
+        databaseName: ${dbname:yugabyte}
+        topologyKeys: "cloud.region.*"
+        #ssl: ${ssl:false}
+        #sslmode: ${sslmode:disable}
+        #sslrootcert: ${sslrootcert:~/.ssh/ybcloudcert/root.crt}
+    hikari2:
+      username: ${dbuser:yugabyte}
+      password: ${dbpassword:yugabyte}
+      #      connection-init-sql: 'set yb_read_from_followers to true;'
+      maximumPoolSize: ${max-pool-size:10}
+      maxLifeTime: ${max-life-time:600000}
+      read-only: false
+      initialization-fail-timeout: -1
+      connection-timeout: 5000
+#      minimum-idle: 0
+      data-source-class-name: com.yugabyte.ysql.YBClusterAwareDataSource
+      data-source-properties:
+        serverName: ${node:127.0.0.3}
+        portNumber: ${port:5433}
+        databaseName: ${dbname:yugabyte}
+        topologyKeys: "cloud.region.*"
+#    continue-on-error: true
+logging.level:
+  root: ERROR
+  java.sql: ERROR
+  com.zaxxer.hikari: TRACE
+  com.yugabyte: ERROR
+  com.yugabyte.simulation.workload: ERROR
+  org.springframework.jdbc.core: ERROR
+  com.yugabyte.ybactiveactiveautoswitchdemo: INFO
+
+server:
+  port: 8080
+
